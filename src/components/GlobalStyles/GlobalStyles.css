@@ -8,6 +8,13 @@
 
 :root {
     --app-color-1: #fe2c55;
+    --color-black-0: #000;
+    --text-color: #161823;
+    --color-white-0: #fff;
+
+    --default-layout-header-height: 60px;
+    --default-layout-width: 1150px;
+    --default-layout-horizontal-spacer: 24px;
 }
 
 html {
@@ -17,4 +24,36 @@ body {
     font-family: 'IBM Plex Sans', sans-serif;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
+}
+
+button,
+input {
+    outline: none;
+    border: none;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+/* Custom tippy tooltip */
+.tippy-box {
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    background-color: rgba(84, 84, 84, 0.92);
+}
+
+.tippy-arrow {
+    color: rgba(84, 84, 84, 0.92);
+}
+
+.tippy-content {
+    padding: 8px 9px;
+}
+
+.tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
+    top: -8px;
 }

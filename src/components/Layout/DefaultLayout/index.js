@@ -1,13 +1,15 @@
 import Header from '../components/Header';
 import Sidebar from './Sidebar';
+import clsx from 'clsx';
+import styles from './DefaultLayout.module.css';
 
 function DefaultLayout({ children }) {
     return (
-        <div>
+        <div className={clsx(styles.wrapper)}>
             <Header />
-            <div className="container">
+            <div className={clsx(styles.container)}>
                 <Sidebar />
-                <div className="content">{children}</div>
+                <div className={clsx(styles.content)}>{children}</div>
             </div>
         </div>
     );
