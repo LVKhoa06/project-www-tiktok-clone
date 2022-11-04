@@ -10,20 +10,22 @@ import styles from './Search.module.css';
 import { useDebounce } from '~/hooks';
 
 function Search() {
-    const [searchValue, setSearchValue] = useState('');
-    const [searchResult, setSearchResult] = useState([]);
+    const [searchValue, setSearchValue] = useState(''); // onChange
+    const [searchResult, setSearchResult] = useState([]); //
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
-    const debounced = useDebounce(searchValue, 500);
+    const debounced = useDebounce(searchValue, 500); // Delay 500ms
     const inputRef = useRef();
 
     useEffect(() => {
+        // Khi nhập dấu cách ở đầu thì không tìm kiếm
         if (!debounced.trim()) {
             setSearchResult([]);
             return;
         }
 
-        setLoading(true);
+        setLoading(true); // Mã hóa các kí tự không hợp lệ (&, #, ?, =,...)
+        //https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less
         fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
             .then((res) => res.json())
             .then((res) => {
@@ -71,14 +73,13 @@ function Search() {
                     onFocus={() => setShowResult(true)}
                 />
 
-                {!!searchValue && !loading && (
-                    <button className={clsx(styles.clear)} onClick={handleClear}>
-                        <FontAwesomeIcon icon={faCircleXmark} />
-                    </button>
-                )}
+                {searchValue &&
+                    !loading && ( // !!
+                        <button className={clsx(styles.clear)} onClick={handleClear}>
+                            <FontAwesomeIcon icon={faCircleXmark} />
+                        </button>
+                    )}
                 {loading && <FontAwesomeIcon className={clsx(styles.loading)} icon={faSpinner} />}
-                {/* <FontAwesomeIcon className={clsx(styles.loading)} icon={faSpinner} /> */}
-
                 <button className={clsx(styles.searchBtn)}>
                     <SearchIcon />
                 </button>
