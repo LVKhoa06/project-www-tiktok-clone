@@ -12,6 +12,10 @@
     padding-bottom: 8px;
 }
 
+.menuBody {
+    overflow-y: auto;
+}
+
 /* Menu items */
 .menuItem {
     width: 100%;
@@ -33,6 +37,7 @@ menuItem.separate {
 .header {
     position: relative;
     height: 50px;
+    flex-shrink: 0;
     margin-top: -8px;
 }
 

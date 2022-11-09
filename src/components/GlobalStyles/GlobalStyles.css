@@ -15,15 +15,31 @@
     --default-layout-header-height: 60px;
     --default-layout-width: 1150px;
     --default-layout-horizontal-spacer: 24px;
+    --font-family: 'IBM Plex Sans', sans-serif;
 }
 
-html {
+/* Scrollbar CSS */
+
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 body {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--font-family);
     line-height: 1.5;
     text-rendering: optimizeSpeed;
+    overflow-y: overlay;
 }
 
 button,
@@ -41,8 +57,8 @@ a {
 .tippy-box {
     border-radius: 8px;
     font-weight: 600;
-    font-size: 1.6rem;
-    line-height: 2.2rem;
+    font-size: 16px;
+    line-height: 2;
     background-color: rgba(84, 84, 84, 0.92);
 }
 
