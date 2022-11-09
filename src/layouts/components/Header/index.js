@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import styles from './Header.module.css';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '~/assets/images';
 import Button from '~/components/Button';
@@ -19,7 +20,7 @@ import {
     faSignOut,
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
-
+import config from '~/config';
 const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faEarthAsia} />,
@@ -27,6 +28,66 @@ const MENU_ITEMS = [
         children: {
             title: 'Language',
             data: [
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
                 {
                     type: 'language',
                     code: 'en',
@@ -51,24 +112,14 @@ const MENU_ITEMS = [
     },
 ];
 
-// Handle logic
-const handleMenuChange = (menuItem) => {
-    switch (menuItem.type) {
-        case 'language':
-            // Handle change language
-            break;
-        default:
-    }
-};
-
 function Header() {
-    const currentUser = true;
+    const currentUser = false;
 
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: 'View profile',
-            to: '/@hoaa',
+            to: '/@khoa',
         },
         {
             icon: <FontAwesomeIcon icon={faCoins} />,
@@ -92,9 +143,12 @@ function Header() {
     return (
         <header className={clsx(styles.wrapper)}>
             <div className={clsx(styles.inner)}>
-                <img src={images.logo} alt="Tiktok" />
+                <Link to={config.routes.home}>
+                    <img src={images.logo} alt="Tiktok" />
+                </Link>
                 <Search />
                 <div className={clsx(styles.actions)}>
+                    {/* Check login | logout */}
                     {currentUser ? (
                         <>
                             <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
@@ -120,13 +174,13 @@ function Header() {
                             <Button primary>Log in</Button>
                         </>
                     )}
-
-                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                    {/* Check login | logout */}
+                    <Menu items={currentUser ? userMenu : MENU_ITEMS}>
                         {currentUser ? (
                             <Image
                                 className={clsx(styles.userAvatar)}
-                                src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"
-                                alt="Nguyen Van A"
+                                src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Dashboard/Fuji_Dash_Laptops_758x608_2X_en_US._SY608_CB418608386_.jpg"
+                                alt="Luong Van Khoa"
                             />
                         ) : (
                             <button className={clsx(styles.moreBtn)}>
