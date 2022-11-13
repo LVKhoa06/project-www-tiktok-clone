@@ -8,9 +8,10 @@
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
-    background-color: var(--color-white-0);
+    background-color: var(--background-nav);
     border: 1px solid transparent;
     user-select: none;
+    color: var(--color);
 }
 
 .wrapper.disabled {

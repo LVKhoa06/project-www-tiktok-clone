@@ -7,37 +7,44 @@ import { useLocation } from 'react-router-dom';
 import * as searchServices from '~/services/searchService';
 import { useEffect, useState } from 'react';
 import { useDebounce } from '~/hooks';
+import images from '~/assets/images';
 
 function Profile() {
     const location = useLocation();
     let pathname = location.pathname.slice(2);
+    const debouncedpathname = useDebounce(pathname, 200);
     let [user, setUser] = useState({});
-    const debouncedValue = useDebounce(user, 200);
+    const debouncedValue = useDebounce(user, 300);
 
     useEffect(() => {
         const fetchApi = async () => {
             let result = await searchServices.searchItem(pathname);
             result = result.filter((item) => {
-                return item.nickname === pathname;
+                return item.nickname === debouncedpathname;
             });
             setUser(result[0]);
         };
         fetchApi();
-    }, [pathname]);
+    }, [debouncedpathname]);
 
     return (
         <div className={clsx(styles.wrapper)}>
             <div>
                 <div className={clsx(styles.header)}>
                     <a className={styles.image}>
-                        <img className={clsx(styles.avatar)} src={user.avatar} />
+                        <img
+                            className={clsx(styles.avatar)}
+                            src={debouncedValue.avatar ? debouncedValue.avatar : images.noImage}
+                        />
                     </a>
                     <div className={clsx(styles.wrapperTop)}>
                         <h2 className={clsx(styles.nickname)}>
                             {debouncedValue.nickname}
-                            {user.tick && <FontAwesomeIcon className={clsx(styles.check)} icon={faCheckCircle} />}
+                            {debouncedValue.tick && (
+                                <FontAwesomeIcon className={clsx(styles.check)} icon={faCheckCircle} />
+                            )}
                         </h2>
-                        <h4 className={clsx(styles.fullName)}>{user.full_name}</h4>
+                        <h4 className={clsx(styles.fullName)}>{debouncedValue.full_name}</h4>
                         <div className={clsx(styles.wrapBtn)}>
                             <Button className={clsx(styles.btn)} primary>
                                 Follow
@@ -47,17 +54,17 @@ function Profile() {
                 </div>
                 <div>
                     <p className={clsx(styles.info)}>
-                        <strong className={clsx(styles.quantity)}>{user.followings_count}</strong>
+                        <strong className={clsx(styles.quantity)}>{debouncedValue.followings_count}</strong>
                         <span className={clsx(styles.text)}>Following</span>
-                        <strong className={clsx(styles.quantity)}>{user.followers_count}</strong>
+                        <strong className={clsx(styles.quantity)}>{debouncedValue.followers_count}</strong>
                         <span className={clsx(styles.text)}>Followers</span>
-                        <strong className={clsx(styles.quantity)}>{user.likes_count}</strong>
+                        <strong className={clsx(styles.quantity)}>{debouncedValue.likes_count}</strong>
                         <span className={clsx(styles.text)}>Likes</span>
                     </p>
                 </div>
                 <div>
-                    <p className={clsx(styles.bio)}>{user.bio}</p>
-                    <p className={clsx(styles.contact)}>{user.website_url}</p>
+                    <p className={clsx(styles.bio)}>{debouncedValue.bio}</p>
+                    <p className={clsx(styles.contact)}>{debouncedValue.website_url}</p>
                 </div>
                 <FontAwesomeIcon className={clsx(styles.icon)} icon={faEllipsis}></FontAwesomeIcon>
                 <FontAwesomeIcon className={clsx(styles.icon, styles.iconShare)} icon={faShare}></FontAwesomeIcon>

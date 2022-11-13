@@ -1,5 +1,5 @@
 .wrapper {
-    border-top: 1px solid #e3e3e4;
+    border-top: 1px solid var(--border);
 }
 
 .label {
@@ -29,7 +29,7 @@
 .nickname {
     margin-top: 0;
     font-size: 16px;
-    color: #161823;
+    color: var(--text-color);
     line-height: 1;
 }
 
@@ -41,7 +41,7 @@
 
 .name {
     font-size: 12px;
-    opacity: #161823bf;
+    color: var(--label-color);
 }
 
 .moreBtn {

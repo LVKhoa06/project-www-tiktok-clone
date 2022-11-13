@@ -1,7 +1,6 @@
 /* Menu wrapper */
 .menuList {
     width: 224px;
-    background-color: var(--color-white-0);
 }
 
 .menuList.menuItem {
@@ -25,12 +24,8 @@
     font-weight: 600;
 }
 
-menuItem.separate {
-    border-top: 1px solid rgba(22, 24, 35, 0.12);
-}
-
 .menuItem:hover {
-    background-color: rgba(22, 24, 35, 0.03);
+    background-color: var(--background-hover);
 }
 
 /* Header */
@@ -46,6 +41,7 @@ menuItem.separate {
     height: 100%;
     background-color: transparent;
     cursor: pointer;
+    color: var(--color);
 }
 
 .headerTitle {

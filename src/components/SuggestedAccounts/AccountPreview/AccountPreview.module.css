@@ -1,6 +1,8 @@
 .wrapper {
     width: 320px;
     padding: 20px;
+    background-color: var(--background-nav);
+    border-radius: 10px;
 }
 
 .header {
@@ -22,11 +24,12 @@
 
 .body {
     margin-top: 12px;
-    color: #161823;
+    color: var(--text-color);
 }
 
 .nickname {
     font-size: 18px;
+    color: var(--text-color);
 }
 
 .check {
@@ -37,17 +40,23 @@
 
 .name {
     font-size: 14px;
+    color: var(--label-color);
 }
 
 .analytics {
     margin-top: 10px;
     font-size: 18px;
+    color: var(--color);
 }
 
 .value ~ .value {
     margin-left: 20px;
 }
 
+.value {
+    color: var(--text-color);
+}
+
 .label {
-    color: #161823bf;
+    color: var(--label-color);
 }

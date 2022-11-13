@@ -1,0 +1,13 @@
+html[data-theme='light'] {
+    --color: black;
+    --background: rgb(250, 250, 250);
+    --background-nav: #fefefe;
+    --background-hover: rgba(22, 24, 35, 0.03);
+    --background-btn: rgb(237, 237, 237);
+    --background-input: rgba(22, 24, 35, 0.06);
+    --background-header: white;
+    --scroll: rgba(0, 0, 0, 0.15);
+    --text-color: #161823;
+    --label-color: #7a7a7a;
+    --border: #e3e3e4;
+}

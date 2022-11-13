@@ -10,6 +10,8 @@ import 'tippy.js/dist/tippy.css';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search';
+import DarkModeToggle from '~/components/ToggleDarkMode';
+
 import {
     faCircleQuestion,
     faCoins,
@@ -19,10 +21,11 @@ import {
     faKeyboard,
     faSignOut,
     faUser,
+    faMoon,
 } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
 import Login from '../form/Login';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const MENU_ITEMS = [
     {
@@ -53,14 +56,16 @@ const MENU_ITEMS = [
         icon: <FontAwesomeIcon icon={faKeyboard} />,
         title: 'Keyboard shortcuts',
     },
+    {
+        icon: <FontAwesomeIcon icon={faMoon} />,
+        title: 'Dark mode',
+    },
 ];
 
 function Header() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [loginShow, setLoginShow] = useState(false); // Form
-    const hanleClick = () => {
-        setLoggedIn(true);
-    };
+    const [darkMode, setDarkMode] = useState(localStorage.getItem('theme') === 'dark');
 
     const userMenu = [
         {
@@ -85,67 +90,79 @@ function Header() {
             title: 'Log out',
         },
     ];
-    let data;
-    const foo = userMenu.forEach((item, index) => {
-        if (item.children) return (data = item);
-        else return;
-    });
+
+    const hanleClick = () => {
+        setLoggedIn(true);
+    };
+    const hanleToggleTheme = () => {
+        darkMode ? setDarkMode(false) : setDarkMode(true);
+    };
+
     return (
-        <header className={clsx(styles.wrapper)}>
-            {loginShow && <Login></Login>}
-            <div className={clsx(styles.inner)}>
-                <Link to={config.routes.home}>
-                    <img src={images.logo} alt="Tiktok" />
-                </Link>
-                <Search />
-                <div className={clsx(styles.actions)}>
-                    {/* Check login | logout */}
-                    {loggedIn ? (
-                        <>
-                            <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
-                                <button className={clsx(styles.actionBtn)}>
-                                    <UploadIcon />
-                                </button>
-                            </Tippy>
-                            <Tippy delay={[0, 50]} content="Message" placement="bottom">
-                                <button className={clsx(styles.actionBtn)}>
-                                    <MessageIcon />
-                                </button>
-                            </Tippy>
-                            <Tippy delay={[0, 50]} content="Inbox" placement="bottom">
-                                <button className={clsx(styles.actionBtn)}>
-                                    <InboxIcon />
-                                    <span className={clsx(styles.badge)}>12</span>
-                                </button>
-                            </Tippy>
-                        </>
-                    ) : (
-                        <>
-                            <Button text>Upload</Button>
-                            {!loggedIn && (
-                                <Button onClick={hanleClick} primary>
-                                    Log in
-                                </Button>
-                            )}
-                        </>
-                    )}
-                    {/* Check login | logout */}
-                    <Menu items={loggedIn ? userMenu : MENU_ITEMS}>
-                        {loggedIn ? (
-                            <Image
-                                className={clsx(styles.userAvatar)}
-                                src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Dashboard/Fuji_Dash_Laptops_758x608_2X_en_US._SY608_CB418608386_.jpg"
-                                alt="Luong Van Khoa"
-                            />
+        <div>
+            <header className={clsx(styles.wrapper)}>
+                {loginShow && <Login></Login>}
+                <div className={clsx(styles.inner)}>
+                    <Link to={config.routes.home}>
+                        {darkMode ? (
+                            <img src={images.logoDark} alt="Tiktok" />
                         ) : (
-                            <button className={clsx(styles.moreBtn)}>
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                            </button>
+                            <img src={images.logoLight} alt="Tiktok" />
                         )}
-                    </Menu>
+                    </Link>
+                    <Search />
+                    <div className={clsx(styles.actions)}>
+                        {/* Check login | logout */}
+                        {loggedIn ? (
+                            <>
+                                <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
+                                    <button className={clsx(styles.actionBtn)}>
+                                        <UploadIcon />
+                                    </button>
+                                </Tippy>
+                                <Tippy delay={[0, 50]} content="Message" placement="bottom">
+                                    <button className={clsx(styles.actionBtn)}>
+                                        <MessageIcon />
+                                    </button>
+                                </Tippy>
+                                <Tippy delay={[0, 50]} content="Inbox" placement="bottom">
+                                    <button className={clsx(styles.actionBtn)}>
+                                        <InboxIcon />
+                                        <span className={clsx(styles.badge)}>12</span>
+                                    </button>
+                                </Tippy>
+                            </>
+                        ) : (
+                            <>
+                                <Button className={styles.btnUpload} text>
+                                    Upload
+                                </Button>
+                                {!loggedIn && (
+                                    <Button onClick={hanleClick} primary>
+                                        Log in
+                                    </Button>
+                                )}
+                            </>
+                        )}
+                        {/* Check login | logout */}
+                        <Menu items={loggedIn ? userMenu : MENU_ITEMS}>
+                            {loggedIn ? (
+                                <Image
+                                    className={clsx(styles.userAvatar)}
+                                    src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Dashboard/Fuji_Dash_Laptops_758x608_2X_en_US._SY608_CB418608386_.jpg"
+                                    alt="Luong Van Khoa"
+                                />
+                            ) : (
+                                <button className={clsx(styles.moreBtn)}>
+                                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                                </button>
+                            )}
+                        </Menu>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
+            <DarkModeToggle onMouseDown={hanleToggleTheme} />
+        </div>
     );
 }
 

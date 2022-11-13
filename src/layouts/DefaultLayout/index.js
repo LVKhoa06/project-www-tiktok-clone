@@ -5,6 +5,7 @@ import styles from './DefaultLayout.module.css';
 import Sidebar from '~/layouts/components/Sidebar/Sidebar';
 
 function DefaultLayout({ children }) {
+    localStorage.getItem('theme');
     return (
         <div className={clsx(styles.wrapper)}>
             <Header />

@@ -10,19 +10,14 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function AccountItem({ full_name, avatar, nickname, tick }) {
-    const [curUser, setCurUser] = useState('');
+    const [curUser, setCurUser] = useState({});
 
     const handleMove = async () => {
         let result = await searchServices.searchAll(nickname);
         result = result.filter((item) => {
             return item.nickname === nickname;
         });
-
-        if (result === []) {
-            return;
-        } else {
-            setCurUser(result[0]);
-        }
+        setCurUser(result[0]);
     };
 
     const renderPreview = (...props) => {

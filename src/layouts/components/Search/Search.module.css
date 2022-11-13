@@ -15,7 +15,7 @@
     height: 46px;
     padding-left: 16px;
     display: flex;
-    background-color: rgba(22, 24, 35, 0.06);
+    background-color: var(--background-input);
     border-radius: 92px;
     border: 1.5px solid transparent;
 }
@@ -23,11 +23,11 @@
 .search::after {
     content: '';
     position: absolute;
-    top: 9px;
+    top: 8px;
     right: 52px;
-    width: 1px;
+    width: 0.7px;
     height: calc(46px - 9px * 2);
-    background-color: rgba(22, 24, 35, 0.12);
+    background-color: var(--scroll);
 }
 
 .search:focus-within {
@@ -38,30 +38,31 @@
     padding-right: 40px;
     flex: 1;
     height: 100%;
-    color: var(--black);
+    color: var(--color);
     font-size: 16px;
-    caret-color: var(--primary);
+    caret-color: var(--app-color-1);
     background-color: transparent;
 }
 
 .search input:not(:placeholder-shown) ~ .searchBtn {
-    color: rgba(22, 24, 35, 0.75);
+    color: var(--text-color);
 }
 
 .searchTitle {
     padding: 5px 12px;
     font-size: 14px;
     font-weight: 600;
-    color: rgba(22, 24, 35, 0.5);
+    color: var(--label-color);
 }
 
 .clear,
 .loading {
     position: absolute;
-    right: calc(52px + 16px);
+    right: 68px;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(22, 24, 35, 0.34);
+    color: var(--label-color);
+    background-color: transparent;
 }
 
 .searchBtn {
@@ -73,12 +74,13 @@
     border-top-right-radius: 92px;
     border-bottom-right-radius: 92px;
     font-size: 18px;
-    color: rgba(22, 24, 35, 0.34);
+    background-color: transparent;
+    color: var(--label-color);
 }
 
 .searchBtn:hover {
     cursor: pointer;
-    background-color: rgba(22, 24, 35, 0.03);
+    background-color: var(--background-hover);
 }
 
 .searchBtn:active {

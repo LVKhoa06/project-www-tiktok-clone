@@ -59,7 +59,7 @@
 }
 
 .text {
-    color: rgba(22, 24, 35, 0.75);
+    color: var(--label-color);
     font-weight: 400;
     font-size: 16px;
     margin: 0px 20px 0 6px;
@@ -83,7 +83,7 @@
     right: 0;
     margin: 0 5px 0 5px;
     font-size: 24px;
-    color: rgba(22, 24, 35, 0.7);
+    color: var(--label-color);
     cursor: pointer;
     padding: 4px;
 }

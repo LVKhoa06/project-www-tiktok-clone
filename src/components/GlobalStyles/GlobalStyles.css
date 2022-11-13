@@ -9,7 +9,6 @@
 :root {
     --app-color-1: #fe2c55;
     --color-black-0: #000;
-    --text-color: #161823;
     --color-white-0: #fff;
 
     --default-layout-header-height: 60px;
@@ -18,8 +17,7 @@
     --font-family: 'IBM Plex Sans', sans-serif;
 }
 
-/* Scrollbar CSS */
-
+/* Scrollbar CSS START*/
 html *::-webkit-scrollbar {
     border-radius: 0;
     width: 8px;
@@ -27,13 +25,9 @@ html *::-webkit-scrollbar {
 
 html *::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: var(--scroll);
 }
-
-html *::-webkit-scrollbar-track {
-    border-radius: 0;
-    background-color: rgba(0, 0, 0, 0);
-}
+/* Scrollbar CSS END*/
 
 body {
     font-family: var(--font-family);
@@ -51,25 +45,4 @@ input {
 a {
     color: var(--text-color);
     text-decoration: none;
-}
-
-/* Custom tippy tooltip */
-.tippy-box {
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 2;
-    background-color: rgba(84, 84, 84, 0.92);
-}
-
-.tippy-arrow {
-    color: rgba(84, 84, 84, 0.92);
-}
-
-.tippy-content {
-    padding: 8px 9px;
-}
-
-.tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
-    top: -8px;
 }

@@ -24,14 +24,15 @@
 .name {
     font-size: 16px;
     font-weight: 500;
+    color: var(--text-color);
 }
 
 .check {
     margin-left: 6px;
-    color: rgb(32, 213, 236);
+    color: #20d5ec;
 }
 
 .username {
     font-size: 14px;
-    color: rgba(22, 24, 35, 0.5);
+    color: var(--label-color);
 }
