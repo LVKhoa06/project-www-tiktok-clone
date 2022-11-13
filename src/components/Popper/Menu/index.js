@@ -1,3 +1,5 @@
+// Pug !!!
+// Dark mode
 import PropTypes from 'prop-types';
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
@@ -5,13 +7,19 @@ import MenuItem from './MenuItem';
 import clsx from 'clsx';
 import styles from './Menu.module.css';
 import Header from './Header';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const defaultFn = () => {};
-
-function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
+function Menu({ children, items = [], onChange = defaultFn }) {
     const [history, setHistory] = useState([{ data: items }]);
-    const current = history[history.length - 1];
+    const [current, setCurrent] = useState(history[history.length - 1]);
+    useEffect(() => {
+        setHistory([{ data: items }]);
+    }, [items]);
+
+    useEffect(() => {
+        setCurrent(history[history.length - 1]);
+    }, [history]);
 
     const renderItems = () => {
         return current.data.map((item, index) => {
@@ -22,23 +30,23 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
                     key={index}
                     data={item}
                     onClick={() => {
-                        if (isParent) {
-                            setHistory((prev) => [...prev, item.children]);
-                        } else {
-                            onChange(item);
-                        }
+                        if (item.onClick) return item.onClick();
+
+                        if (isParent) return setHistory((prev) => [...prev, item.children]);
+
+                        onChange(item);
                     }}
+                    // onClick={() => item.onClick && item?.onClick()}
                 />
             );
         });
     };
-
     const handleBack = () => {
         setHistory((prev) => prev.slice(0, prev.length - 1));
     };
 
     const renderResult = (attrs) => (
-        <div className={clsx(styles.menuList)} tabIndex="-1" {...attrs}>
+        <div className={clsx(styles.menuList)} {...attrs}>
             <PopperWrapper className={clsx(styles.menuPopper)}>
                 {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
                 <div className={clsx(styles.menuBody)}>{renderItems()}</div>
@@ -54,9 +62,9 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
     return (
         <Tippy
             interactive
-            delay={[0, 700]}
+            delay={[10, 900]}
             offset={[12, 8]}
-            hideOnClick={hideOnClick}
+            hideOnClick={true}
             placement="bottom-end"
             render={renderResult}
             onHide={handleReset}

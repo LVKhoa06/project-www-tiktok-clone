@@ -21,6 +21,9 @@ import {
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
+import Login from '../form/Login';
+import { useState } from 'react';
+
 const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faEarthAsia} />,
@@ -28,66 +31,6 @@ const MENU_ITEMS = [
         children: {
             title: 'Language',
             data: [
-                {
-                    type: 'language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-                {
-                    type: 'language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
                 {
                     type: 'language',
                     code: 'en',
@@ -113,7 +56,11 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const currentUser = false;
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [loginShow, setLoginShow] = useState(false); // Form
+    const hanleClick = () => {
+        setLoggedIn(true);
+    };
 
     const userMenu = [
         {
@@ -133,15 +80,19 @@ function Header() {
         },
         ...MENU_ITEMS,
         {
+            onClick: () => setLoggedIn(false),
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Log out',
-            to: '/logout',
-            separate: true,
         },
     ];
-
+    let data;
+    const foo = userMenu.forEach((item, index) => {
+        if (item.children) return (data = item);
+        else return;
+    });
     return (
         <header className={clsx(styles.wrapper)}>
+            {loginShow && <Login></Login>}
             <div className={clsx(styles.inner)}>
                 <Link to={config.routes.home}>
                     <img src={images.logo} alt="Tiktok" />
@@ -149,7 +100,7 @@ function Header() {
                 <Search />
                 <div className={clsx(styles.actions)}>
                     {/* Check login | logout */}
-                    {currentUser ? (
+                    {loggedIn ? (
                         <>
                             <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
                                 <button className={clsx(styles.actionBtn)}>
@@ -171,12 +122,16 @@ function Header() {
                     ) : (
                         <>
                             <Button text>Upload</Button>
-                            <Button primary>Log in</Button>
+                            {!loggedIn && (
+                                <Button onClick={hanleClick} primary>
+                                    Log in
+                                </Button>
+                            )}
                         </>
                     )}
                     {/* Check login | logout */}
-                    <Menu items={currentUser ? userMenu : MENU_ITEMS}>
-                        {currentUser ? (
+                    <Menu items={loggedIn ? userMenu : MENU_ITEMS}>
+                        {loggedIn ? (
                             <Image
                                 className={clsx(styles.userAvatar)}
                                 src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Dashboard/Fuji_Dash_Laptops_758x608_2X_en_US._SY608_CB418608386_.jpg"

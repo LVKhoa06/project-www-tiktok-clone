@@ -1,0 +1,58 @@
+.wrapperd {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: rgba(000, 000, 000, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+}
+
+.form {
+    border-radius: 8px;
+    transition: all 300ms cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+    transform: none;
+    margin: 70px auto;
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    width: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.title {
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.btn {
+    border: 1px solid rgb(193, 191, 191);
+    height: 44px;
+    margin-bottom: 15px;
+    width: 80%;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 100px;
+}
+
+.primary {
+    font-weight: 600;
+    color: var(--app-color-1);
+}

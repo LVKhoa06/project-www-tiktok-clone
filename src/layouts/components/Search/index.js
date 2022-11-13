@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -12,11 +12,11 @@ import { useDebounce } from '~/hooks';
 import * as searchServices from '~/services/searchService';
 
 function Search() {
-    const [searchValue, setSearchValue] = useState(''); // onChange
+    const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
-    const debouncedValue = useDebounce(searchValue, 500); // Delay 500ms
+    const debouncedValue = useDebounce(searchValue, 500);
     const inputRef = useRef();
 
     useEffect(() => {
@@ -29,7 +29,6 @@ function Search() {
             setLoading(true);
 
             const result = await searchServices.search(debouncedValue);
-
             setSearchResult(result);
             setLoading(false);
         };
@@ -63,7 +62,7 @@ function Search() {
                 interactive
                 visible={showResult && searchResult.length > 0}
                 render={(attrs) => (
-                    <div className={clsx(styles.searchResult)} tabIndex="-1" {...attrs}>
+                    <div className={clsx(styles.searchResult)} {...attrs}>
                         <PopperWrapper>
                             <h4 className={clsx(styles.searchTitle)}>Accounts</h4>
                             {searchResult.map((result) => (
