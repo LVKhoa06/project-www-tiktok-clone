@@ -4,30 +4,33 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Button from '~/components/Button';
 import styles from './AccountPreview.module.css';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
-function AccountPreview() {
+function AccountPreview({ full_name, avatar, nickname, likes_count, followers_count, tick }) {
     return (
         <div className={clsx(styles.wrapper)}>
             <div className={clsx(styles.header)}>
-                <img
-                    className={clsx(styles.avatar)}
-                    src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Dashboard/Fuji_Dash_Laptops_758x608_2X_en_US._SY608_CB418608386_.jpg"
-                    alt=""
-                />
+                <Link to={`/@${nickname}`}>
+                    <img className={clsx(styles.avatar)} src={avatar} alt="" />
+                </Link>
                 <Button className={clsx(styles.followBtn)} primary>
                     Follow
                 </Button>
             </div>
             <div className={clsx(styles.body)}>
                 <p className={clsx(styles.nickname)}>
-                    <strong>luongvankhoa</strong>
-                    <FontAwesomeIcon className={clsx(styles.check)} icon={faCheckCircle} />
+                    <Link to={`/@${nickname}`}>
+                        <strong>{nickname}</strong>
+                        {tick && <FontAwesomeIcon className={clsx(styles.check)} icon={faCheckCircle} />}
+                    </Link>
                 </p>
-                <p className={clsx(styles.name)}>Lương Văn Khoa</p>
+                <Link to={`/@${nickname}`}>
+                    <p className={clsx(styles.name)}>{full_name}</p>
+                </Link>
                 <p className={clsx(styles.analytics)}>
-                    <strong className={clsx(styles.value)}>8.2M </strong>
+                    <strong className={clsx(styles.value)}>{followers_count}</strong>
                     <span className={clsx(styles.label)}>Followers</span>
-                    <strong className={clsx(styles.value)}>8.2M </strong>
+                    <strong className={clsx(styles.value)}>{likes_count}</strong>
                     <span className={clsx(styles.label)}>Likes</span>
                 </p>
             </div>
