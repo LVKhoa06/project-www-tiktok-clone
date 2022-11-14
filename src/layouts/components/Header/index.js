@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import styles from './Header.module.css';
+import stylesDarkMode from '~/components/ToggleDarkMode/ToggleDarkMode.module.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '~/assets/images';
@@ -27,45 +28,96 @@ import config from '~/config';
 import Login from '../form/Login';
 import { useState, useEffect } from 'react';
 
-const MENU_ITEMS = [
-    {
-        icon: <FontAwesomeIcon icon={faEarthAsia} />,
-        title: 'English',
-        children: {
-            title: 'Language',
-            data: [
-                {
-                    type: 'language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-            ],
-        },
-    },
-    {
-        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-        title: 'Feedback and help',
-        to: '/feedback',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faKeyboard} />,
-        title: 'Keyboard shortcuts',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faMoon} />,
-        title: 'Dark mode',
-    },
-];
-
 function Header() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [loginShow, setLoginShow] = useState(false); // Form
     const [darkMode, setDarkMode] = useState(localStorage.getItem('theme') === 'dark');
+
+    const hanleClick = () => {
+        setLoggedIn(true);
+    };
+    const hanleToggleTheme = () => {
+        setDarkMode((current) => !current);
+    };
+
+    useEffect(() => {
+        const html = document.getElementsByTagName('HTML')[0];
+        const body = document.body;
+        // const toggle = document.querySelector(`.${clsx(stylesDarkMode.toggleInner)}`);
+
+        html.setAttribute('data-theme', localStorage.getItem('theme'));
+        // if (!toggle) return;
+
+        if (darkMode) {
+            body.classList.add(clsx(stylesDarkMode.darkMode));
+            // toggle.classList.add(clsx(stylesDarkMode.toggleActive));
+        } else {
+            body.classList.remove(clsx(stylesDarkMode.darkMode));
+            // toggle.classList.remove(clsx(stylesDarkMode.toggleActive));
+        }
+    }, []);
+
+    useEffect(() => {
+        const html = document.getElementsByTagName('HTML')[0];
+        const body = document.body;
+        const toggle = document.querySelector(`.${clsx(stylesDarkMode.toggleInner)}`);
+
+        if (!toggle) return;
+
+        if (darkMode) {
+            html.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+
+            body.classList.add(clsx(stylesDarkMode.darkMode));
+            toggle.classList.add(clsx(stylesDarkMode.toggleActive));
+        } else {
+            html.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+
+            body.classList.remove(clsx(stylesDarkMode.darkMode));
+            toggle.classList.remove(clsx(stylesDarkMode.toggleActive));
+        }
+    }, [darkMode]);
+
+    const menuItem = [
+        {
+            icon: <FontAwesomeIcon icon={faEarthAsia} />,
+            title: 'English',
+            children: {
+                title: 'Language',
+                data: [
+                    {
+                        type: 'language',
+                        code: 'en',
+                        title: 'English',
+                    },
+                    {
+                        type: 'language',
+                        code: 'vi',
+                        title: 'Tiếng Việt',
+                    },
+                ],
+            },
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+            title: 'Feedback and help',
+            to: '/feedback',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faKeyboard} />,
+            title: 'Keyboard shortcuts',
+        },
+        {
+            icon: (
+                <div>
+                    <FontAwesomeIcon icon={faMoon} />
+                    <DarkModeToggle handleToggleBehavior={hanleToggleTheme} />
+                </div>
+            ),
+            title: 'Dark mode',
+        },
+    ];
 
     const userMenu = [
         {
@@ -83,20 +135,13 @@ function Header() {
             title: 'Settings',
             to: '/settings',
         },
-        ...MENU_ITEMS,
+        ...menuItem,
         {
             onClick: () => setLoggedIn(false),
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Log out',
         },
     ];
-
-    const hanleClick = () => {
-        setLoggedIn(true);
-    };
-    const hanleToggleTheme = () => {
-        darkMode ? setDarkMode(false) : setDarkMode(true);
-    };
 
     return (
         <div>
@@ -145,7 +190,7 @@ function Header() {
                             </>
                         )}
                         {/* Check login | logout */}
-                        <Menu items={loggedIn ? userMenu : MENU_ITEMS}>
+                        <Menu items={loggedIn ? userMenu : menuItem}>
                             {loggedIn ? (
                                 <Image
                                     className={clsx(styles.userAvatar)}
@@ -161,7 +206,6 @@ function Header() {
                     </div>
                 </div>
             </header>
-            <DarkModeToggle onMouseDown={hanleToggleTheme} />
         </div>
     );
 }
