@@ -36,7 +36,6 @@ function Menu({ children, items = [], onChange = defaultFn }) {
 
                         onChange(item);
                     }}
-                    // onClick={() => item.onClick && item?.onClick()}
                 />
             );
         });

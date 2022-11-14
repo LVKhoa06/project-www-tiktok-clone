@@ -6,10 +6,9 @@ import clsx from 'clsx';
 import styles from './AccountItem.module.css';
 import Image from '~/components/Image';
 
-function AccountItem({ data }) {
+function AccountItem({ data, hideResult }) {
     return (
-        // @profile
-        <Link to={`/@${data.nickname}`} className={clsx(styles.wrapper)}>
+        <Link onClick={hideResult} to={`/@${data.nickname}`} className={clsx(styles.wrapper)}>
             <Image className={clsx(styles.avatar)} src={data.avatar} alt={data.full_name} />
             <div className={clsx(styles.info)}>
                 <h4 className={clsx(styles.name)}>

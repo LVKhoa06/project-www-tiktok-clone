@@ -42,8 +42,11 @@ function Search() {
         inputRef.current.focus();
     };
 
-    const handleHideResult = () => {
-        setShowResult(false);
+    const handleHideResult = (delay) => {
+        setTimeout(() => {
+            setShowResult(false);
+            // setSearchValue();
+        }, delay);
     };
 
     // Ngăn việc nhập dấu cách ở đầu
@@ -66,12 +69,20 @@ function Search() {
                         <PopperWrapper>
                             <h4 className={clsx(styles.searchTitle)}>Accounts</h4>
                             {searchResult.map((result) => (
-                                <AccountItem key={result.id} data={result} />
+                                <AccountItem
+                                    hideResult={() => {
+                                        handleHideResult(800);
+                                    }}
+                                    key={result.id}
+                                    data={result}
+                                />
                             ))}
                         </PopperWrapper>
                     </div>
                 )}
-                onClickOutside={handleHideResult}
+                onClickOutside={() => {
+                    handleHideResult(0);
+                }}
             >
                 <div className={clsx(styles.search)}>
                     <input

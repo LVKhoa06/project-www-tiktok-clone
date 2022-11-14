@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import styles from './Menu.module.css';
 
 function MenuItem({ data, onClick }) {
-    const classes = clsx(styles.menuItem, {
+    const classes = clsx(styles.menuItem, styles.btn, {
         separate: data.separate,
     });
 
