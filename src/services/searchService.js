@@ -11,16 +11,14 @@ export const search = async (q, type = 'less') => {
             },
         });
 
-        const keyRemovedStuff = removeVietnameseTones(q).toUpperCase();
-        const results = res.data.filter((item) => {
-            const removedStuff = removeVietnameseTones(item.full_name).toUpperCase();
-
-            return removedStuff.includes(keyRemovedStuff);
+        const data = res.data.filter((item) => {
+            return item.full_name.trim() !== '';
         });
+        console.log(res.status);
 
-        return results;
+        return data;
     } catch (error) {
-        console.log(error);
+        console.log('Err');
     }
 };
 
@@ -36,7 +34,7 @@ export const searchAll = async (q, type = 'less') => {
 
         return res.data;
     } catch (error) {
-        console.log(error);
+        console.log('Err');
     }
 };
 
@@ -53,7 +51,7 @@ export const searchRandom = async (q, type = 'less') => {
 
         return results;
     } catch (error) {
-        console.log(error);
+        console.log('Err');
     }
 };
 
@@ -69,6 +67,6 @@ export const searchItem = async (q, type = 'less') => {
 
         return res.data;
     } catch (error) {
-        console.log(error);
+        console.log('Err');
     }
 };

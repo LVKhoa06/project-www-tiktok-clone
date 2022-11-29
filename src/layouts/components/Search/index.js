@@ -10,25 +10,46 @@ import { SearchIcon } from '~/components/Icons';
 import styles from './Search.module.css';
 import { useDebounce } from '~/hooks';
 import * as searchServices from '~/services/searchService';
+import removeVietnameseTones from '~/utils/utils';
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
-    const debouncedValue = useDebounce(searchValue, 500);
+    const debouncedValue = useDebounce(searchValue, 400);
     const inputRef = useRef();
+    const [keyRemovedStuff, setKeyRemovedStuff] = useState('');
+
+    const unique = (arr) => {
+        return Array.from(new Set(arr));
+    };
 
     useEffect(() => {
         if (!debouncedValue.trim()) {
             setSearchResult([]);
             return;
         }
-
         const fetchApi = async () => {
             setLoading(true);
 
-            const result = await searchServices.search(debouncedValue);
+            let result = await searchServices.search(debouncedValue);
+
+            const resultsFullName = result.filter((item) => {
+                const removedStuff = removeVietnameseTones(item.full_name).toUpperCase();
+
+                return removedStuff.includes(keyRemovedStuff);
+            });
+
+            // console.log(resultsFullName);
+            const resultsNickname = result.filter((item) => {
+                const removedStuff = removeVietnameseTones(item.nickname).toUpperCase();
+                return removedStuff.includes(keyRemovedStuff);
+            });
+            // console.log(resultsNickname);
+
+            console.log(unique(resultsFullName.concat(resultsNickname)));
+
             setSearchResult(result);
             setLoading(false);
         };
@@ -45,22 +66,19 @@ function Search() {
     const handleHideResult = (delay) => {
         setTimeout(() => {
             setShowResult(false);
-            // setSearchValue();
         }, delay);
     };
 
-    // Ngăn việc nhập dấu cách ở đầu
     const handleChange = (e) => {
         const searchValue = e.target.value;
         if (!searchValue.startsWith(' ')) {
             setSearchValue(searchValue);
+            setKeyRemovedStuff((current) => current.toUpperCase());
         }
     };
 
     return (
-        // Using a wrapper <div> tag around the reference element solves
-        // this by creating a new parentNode context.
-        <div>
+        <>
             <HeadlessTippy
                 interactive
                 visible={showResult && searchResult.length > 0}
@@ -105,7 +123,7 @@ function Search() {
                     </button>
                 </div>
             </HeadlessTippy>
-        </div>
+        </>
     );
 }
 
