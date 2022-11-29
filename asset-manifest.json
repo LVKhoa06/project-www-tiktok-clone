@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/KhoaPC.github.io/project-www-tiktok-clone/static/css/main.4b157ff0.css",
+    "main.js": "/KhoaPC.github.io/project-www-tiktok-clone/static/js/main.3a10b890.js",
+    "static/media/logoLight.svg": "/KhoaPC.github.io/project-www-tiktok-clone/static/media/logoLight.87ef64661abbb6a9094b4fef5253baa9.svg",
+    "static/media/logoDark.svg": "/KhoaPC.github.io/project-www-tiktok-clone/static/media/logoDark.ba3a4aa46adfbe5ee3717faf8d950455.svg",
+    "index.html": "/KhoaPC.github.io/project-www-tiktok-clone/index.html",
+    "main.4b157ff0.css.map": "/KhoaPC.github.io/project-www-tiktok-clone/static/css/main.4b157ff0.css.map",
+    "main.3a10b890.js.map": "/KhoaPC.github.io/project-www-tiktok-clone/static/js/main.3a10b890.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4b157ff0.css",
+    "static/js/main.3a10b890.js"
+  ]
+}
